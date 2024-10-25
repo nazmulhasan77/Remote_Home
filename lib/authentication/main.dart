@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:remote_home/authentication/register_page.dart';
 
 import 'package:remote_home/firebase_options.dart';
-import 'package:remote_home/main.dart';
+import 'package:remote_home/homedata/homedashbord.dart';
 import 'login_page.dart';
 
 void main() async {

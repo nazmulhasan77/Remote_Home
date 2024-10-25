@@ -1,0 +1,55 @@
+{
+    "Project Overview": "This project aims to create a home automation system that allows users to control devices remotely using a Flutter application. The NodeMCU will act as the microcontroller interfacing with various home appliances and communicating with the Flutter app.",
+    "Requirements": {
+        "Hardware": [
+            "NodeMCU (ESP8266)",
+            "Breadboard",
+            "Jumper wires",
+            "Relay module (to control high-voltage devices)",
+            "Home appliances (like a lamp or fan)",
+            "Power supply"
+        ],
+        "Software": [
+            "Arduino IDE (for programming NodeMCU)",
+            "Flutter SDK (for developing the mobile application)",
+            "Firebase account (for real-time database)"
+        ]
+    },
+    "Setup Instructions": {
+        "NodeMCU Setup": [
+            "Install Arduino IDE.",
+            "Install ESP8266 Board in Arduino IDE.",
+            "Connect NodeMCU to your computer using a USB cable."
+        ],
+        "Flutter App Setup": [
+            "Install Flutter.",
+            "Create a New Flutter Project.",
+            "Add Dependencies in pubspec.yaml."
+        ]
+    },
+    "Connecting Hardware": [
+        "Wiring the Relay module to the NodeMCU:",
+        "- Relay IN1 to D1 (GPIO5)",
+        "- VCC to 3.3V",
+        "- GND to GND",
+        "Connect the appliance to the relay.",
+        "Power the NodeMCU."
+    ],
+    "Testing the System": [
+        "Run the Flutter app.",
+        "Toggle the switch in the app to turn the connected device ON/OFF."
+    ],
+    "Troubleshooting": {
+        "NodeMCU not connecting to Wi-Fi": [
+            "Check Wi-Fi credentials.",
+            "Ensure the router is working."
+        ],
+        "Flutter app not communicating with Firebase": [
+            "Verify Firebase configuration and internet connection."
+        ],
+        "Device not responding": [
+            "Check the relay connections and power supply."
+        ]
+    },
+    "Conclusion": "Congratulations! You have successfully set up a home automation system using Flutter and NodeMCU. You can expand this project by adding more devices and implementing additional features like scheduling and monitoring."
+}
