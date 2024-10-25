@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "890102022489",
+    "firebase_url": "https://testesp8266-1427e-default-rtdb.firebaseio.com",
+    "project_id": "testesp8266-1427e",
+    "storage_bucket": "testesp8266-1427e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:890102022489:android:0feedb80136715184d8c48",
+        "android_client_info": {
+          "package_name": "com.example.remote_home"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcqLzv93UsPcqRe3iKrm-mmxnKWPQYbIk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
