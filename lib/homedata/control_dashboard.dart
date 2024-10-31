@@ -1,13 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:remote_home/firebase_options.dart';
 import 'package:remote_home/homedata/drawer.dart';
-import 'package:remote_home/main.dart';
-import 'package:remote_home/drawer/about.dart';
-import 'package:remote_home/drawer/instructions.dart';
-import 'package:remote_home/drawer/user_info.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,10 +12,10 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  runApp(home_dashboard());
+  runApp(control_dashboard());
 }
 
-class home_dashboard extends StatelessWidget {
+class control_dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -82,7 +78,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.teal,
-        title: Text(' Remotely Control your Device'),
+        title: Text('Remotely Control your Device'),
       ),
       drawer: CustomDrawer(),
       body: Column(
@@ -93,6 +89,25 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  // Bedroom Icon with Name
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(FontAwesomeIcons.bed, color: Colors.teal, size: 30),
+                      SizedBox(width: 100),
+                      Text(
+                        'Bedroom',
+                        style: TextStyle(
+                            fontSize: 50,
+                            color: Colors.teal,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                      height: 30), // Spacing between bedroom and other controls
+
+                  // Switch 1 Control
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -115,6 +130,8 @@ class _HomePageState extends State<HomePage> {
                       width: 100,
                       height: 100,
                     ),
+
+                  // Switch 2 Control
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

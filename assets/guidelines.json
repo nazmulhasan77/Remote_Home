@@ -21,10 +21,10 @@
             "Install ESP8266 Board in Arduino IDE.",
             "Connect NodeMCU to your computer using a USB cable."
         ],
-        "Flutter App Setup": [
-            "Install Flutter.",
-            "Create a New Flutter Project.",
-            "Add Dependencies in pubspec.yaml."
+        "Firebase Setup": [
+            "Connect Node MCU to Firebase.",
+            " Create realtime database",
+            "Add Firebase to your Flutter App"
         ]
     },
     "Connecting Hardware": [
@@ -36,7 +36,7 @@
         "Power the NodeMCU."
     ],
     "Testing the System": [
-        "Run the Flutter app.",
+
         "Toggle the switch in the app to turn the connected device ON/OFF."
     ],
     "Troubleshooting": {
