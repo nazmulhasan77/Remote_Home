@@ -1,36 +1,85 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:remote_home/main.dart';
 import 'package:remote_home/drawer/about.dart';
 import 'package:remote_home/drawer/instructions.dart';
 import 'package:remote_home/drawer/user_info.dart';
 
 class CustomDrawer extends StatelessWidget {
+  final String headerImageUrl = 'assets/images/header.png';
+  final String profileImageUrl =
+      'assets/images/profile_pic.png'; // Add your custom image URL here
+
+  Future<Map<String, String>> _getUserData() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .get();
+      return {
+        'name': userDoc['name'] ?? 'Guest User',
+        'email': userDoc['email'] ?? 'No email available',
+      };
+    }
+    return {'name': 'Guest User', 'email': 'No email available'};
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: Column(
         children: [
-          // Custom Drawer Header
-          UserAccountsDrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.deepPurple,
-              image: DecorationImage(
-                image: AssetImage('assets/header_background.png'), // Background image
-                fit: BoxFit.cover,
-              ),
-            ),
-            accountName: Text(
-              'John Doe',
-              style: TextStyle(color: Colors.white),
-            ),
-            accountEmail: Text(
-              'john.doe@example.com',
-              style: TextStyle(color: Colors.white70),
-            ),
-            currentAccountPicture: CircleAvatar(
-              backgroundImage: AssetImage('assets/profile_picture.png'), // Profile picture
-            ),
+          // Custom Drawer Header with Image, Name, and Email
+          FutureBuilder<Map<String, String>>(
+            future: _getUserData(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return DrawerHeader(
+                  decoration: BoxDecoration(
+                    color: Colors.blueAccent,
+                    image: DecorationImage(
+                      image: NetworkImage(headerImageUrl),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  child: Center(child: CircularProgressIndicator()),
+                );
+              }
+              if (snapshot.hasError || !snapshot.hasData) {
+                return DrawerHeader(
+                  child: Center(child: Text('Error loading user data')),
+                );
+              }
+
+              final userData = snapshot.data!;
+              return UserAccountsDrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors.white, // Set header background color to white
+                  image: DecorationImage(
+                    image: NetworkImage(headerImageUrl),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                accountName: Text(
+                  userData['name']!,
+                  style: TextStyle(
+                      color: const Color.fromARGB(255, 6, 6, 6),
+                      fontSize: 18), // Updated text color
+                ),
+                accountEmail: Text(
+                  userData['email']!,
+                  style: TextStyle(color: const Color.fromARGB(135, 0, 0, 0)),
+                ),
+                currentAccountPicture: CircleAvatar(
+                  backgroundImage:
+                      NetworkImage(profileImageUrl), // Custom profile image
+                  backgroundColor: Colors
+                      .transparent, // Transparent background for the image
+                ),
+              );
+            },
           ),
 
           // Drawer Options
@@ -112,7 +161,8 @@ class CustomListTile extends StatelessWidget {
   final String title;
   final VoidCallback onTap;
 
-  CustomListTile({required this.icon, required this.title, required this.onTap});
+  CustomListTile(
+      {required this.icon, required this.title, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
