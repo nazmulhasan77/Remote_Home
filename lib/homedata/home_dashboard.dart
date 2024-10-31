@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:remote_home/firebase_options.dart';
-import 'package:remote_home/pages/about.dart';
-import 'package:remote_home/pages/instructions.dart';
+import 'package:remote_home/homedata/drawer.dart';
+import 'package:remote_home/main.dart';
+import 'package:remote_home/drawer/about.dart';
+import 'package:remote_home/drawer/instructions.dart';
+import 'package:remote_home/drawer/user_info.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,10 +16,10 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  runApp(MyApp());
+  runApp(home_dashboard());
 }
 
-class MyApp extends StatelessWidget {
+class home_dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -80,90 +83,8 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Colors.teal,
         title: Text(' Remotely Control your Device'),
-        /** actions: [
-          IconButton(
-            icon: Icon(Icons.lightbulb),
-            onPressed: () {
-              // Add functionality for controlling lights.
-            },
-          ),
-          IconButton(
-            icon: Icon(Icons.thermostat),
-            onPressed: () {
-              // Add functionality for controlling temperature.
-            },
-          ),
-          IconButton(
-            icon: Icon(Icons.lock),
-            onPressed: () {
-              // Add functionality for controlling locks.
-            },
-          ),
-        ], **/
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text(
-                'Menu',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.info),
-              title: Text('About'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => AboutPage()),
-                );
-                // Add navigation to Firebase About page.
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.people),
-              title: Text('User List'),
-              onTap: () {
-                // Add navigation to User List page.
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.help),
-              title: Text('Instructions'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => GuidelinesPage()),
-                );
-                // Add navigation to Instructions page.
-              },
-            ),
-            Divider(), // A divider to separate the logout from other items.
-            ListTile(
-              leading: Icon(Icons.logout),
-              title: Text('Logout'),
-              onTap: () async {
-                try {
-                  await FirebaseAuth.instance.signOut();
-                  // Navigate to the login page or display a message
-                  Navigator.of(context).pushReplacementNamed('/login');
-                } catch (e) {
-                  // Handle logout error if any
-                  print('Logout error: $e');
-                }
-              },
-            ),
-          ],
-        ),
-      ),
+      drawer: CustomDrawer(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
