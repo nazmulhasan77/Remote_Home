@@ -24,7 +24,6 @@ class _RegisterPageState extends State<RegisterPage> {
     });
 
     try {
-      // Register user in Firebase Authentication
       UserCredential userCredential =
           await _auth.createUserWithEmailAndPassword(
         email: _emailController.text.trim(),
@@ -33,7 +32,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
       User? user = userCredential.user;
       if (user != null) {
-        // Send email verification
         if (!user.emailVerified) {
           await user.sendEmailVerification();
           ScaffoldMessenger.of(context).showSnackBar(
@@ -43,7 +41,6 @@ class _RegisterPageState extends State<RegisterPage> {
           );
         }
 
-        // Save all user data to Firestore
         await _firestore.collection('users').doc(user.uid).set({
           'uid': user.uid,
           'email': user.email,
@@ -65,54 +62,95 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Register')),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextField(
-              controller: _nameController,
-              decoration: InputDecoration(
-                labelText: 'Name',
-                border: OutlineInputBorder(),
+      backgroundColor: Colors.grey[100],
+      appBar: AppBar(
+        title: Text('Create Account',
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+        backgroundColor: Colors.deepPurpleAccent,
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(height: 20),
+              Text(
+                'Join Us!',
+                style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.deepPurpleAccent),
               ),
-            ),
-            SizedBox(height: 16),
-            TextField(
-              controller: _phoneController,
-              decoration: InputDecoration(
-                labelText: 'Phone',
-                border: OutlineInputBorder(),
+              SizedBox(height: 20),
+              CircleAvatar(
+                radius: 50,
+                backgroundColor: Colors.deepPurpleAccent.withOpacity(0.1),
+                child: Icon(Icons.person_add,
+                    size: 60, color: Colors.deepPurpleAccent),
               ),
-            ),
-            SizedBox(height: 16),
-            TextField(
-              controller: _emailController,
-              decoration: InputDecoration(
-                labelText: 'Email',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            SizedBox(height: 16),
-            TextField(
-              controller: _passwordController,
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: 'Password',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            SizedBox(height: 16),
-            _isLoading
-                ? CircularProgressIndicator()
-                : ElevatedButton(
-                    onPressed: _register,
-                    child: Text('Register'),
-                  ),
-          ],
+              SizedBox(height: 30),
+              _buildTextField(_nameController, 'Full Name', Icons.person),
+              SizedBox(height: 20),
+              _buildTextField(_phoneController, 'Phone Number', Icons.phone),
+              SizedBox(height: 20),
+              _buildTextField(_emailController, 'Email', Icons.email),
+              SizedBox(height: 20),
+              _buildTextField(_passwordController, 'Password', Icons.lock,
+                  isPassword: true),
+              SizedBox(height: 30),
+              _isLoading
+                  ? CircularProgressIndicator(color: Colors.deepPurpleAccent)
+                  : SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.deepPurpleAccent,
+                          padding: EdgeInsets.symmetric(vertical: 16),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8)),
+                        ),
+                        onPressed: _register,
+                        child: Text(
+                          'Register',
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+            ],
+          ),
         ),
       ),
+    );
+  }
+
+  Widget _buildTextField(
+    TextEditingController controller,
+    String label,
+    IconData icon, {
+    bool isPassword = false,
+  }) {
+    return TextField(
+      controller: controller,
+      obscureText: isPassword,
+      decoration: InputDecoration(
+        prefixIcon: Icon(icon, color: Colors.deepPurpleAccent),
+        labelText: label,
+        labelStyle: TextStyle(color: Colors.deepPurpleAccent),
+        filled: true,
+        fillColor: Colors.white,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide.none,
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: Colors.deepPurpleAccent),
+        ),
+      ),
+      style: TextStyle(color: Colors.black87),
     );
   }
 }

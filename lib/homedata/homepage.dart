@@ -158,7 +158,7 @@ class HomePage extends StatelessWidget {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text("Incorrect Security Code"),
-          content: Text("Wrong Security Code, Try Again"),
+          content: Text(" Try Again ! "),
           actions: [
             TextButton(
               child: Text("OK"),

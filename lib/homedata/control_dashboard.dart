@@ -7,7 +7,6 @@ import 'package:remote_home/homedata/drawer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -21,7 +20,7 @@ class control_dashboard extends StatelessWidget {
     return MaterialApp(
       title: 'Home Automation',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.teal,
       ),
       home: HomePage(),
     );
@@ -78,96 +77,114 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.teal,
-        title: Text('Remotely Control your Device'),
+        title: Text('Home Automation Control'),
+        centerTitle: true,
       ),
       drawer: CustomDrawer(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          // Bedroom Header
+          Padding(
+            padding: const EdgeInsets.only(top: 20.0),
+            child: Column(
+              children: [
+                Icon(
+                  FontAwesomeIcons.bed,
+                  color: Colors.teal,
+                  size: 60,
+                ),
+                SizedBox(height: 10),
+                Text(
+                  'Bedroom',
+                  style: TextStyle(
+                    fontSize: 36,
+                    color: Colors.teal,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          // Switch Controls
           Expanded(
-            child: Center(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              decoration: BoxDecoration(
+                color: Colors.grey.shade100,
+                borderRadius: BorderRadius.circular(20),
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Bedroom Icon with Name
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(FontAwesomeIcons.bed, color: Colors.teal, size: 30),
-                      SizedBox(width: 100),
-                      Text(
-                        'Bedroom',
-                        style: TextStyle(
-                            fontSize: 50,
-                            color: Colors.teal,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ],
+                  // Switch 1 Control Card
+                  _buildSwitchControl(
+                    'Light',
+                    switch1,
+                    _updateSwitch1,
+                    'assets/images/on.png',
+                    'assets/images/off.png',
                   ),
-                  SizedBox(
-                      height: 30), // Spacing between bedroom and other controls
+                  SizedBox(height: 20),
 
-                  // Switch 1 Control
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Switch 1'),
-                      Switch(
-                        value: switch1,
-                        onChanged: _updateSwitch1,
-                      ),
-                    ],
+                  // Switch 2 Control Card
+                  _buildSwitchControl(
+                    'Fan',
+                    switch2,
+                    _updateSwitch2,
+                    'assets/images/fan_on.gif',
+                    'assets/images/fan_off.png',
                   ),
-                  if (switch1)
-                    Image.asset(
-                      'assets/images/on.png',
-                      width: 100,
-                      height: 100,
-                    )
-                  else
-                    Image.asset(
-                      'assets/images/off.png',
-                      width: 100,
-                      height: 100,
-                    ),
-
-                  // Switch 2 Control
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Switch 2'),
-                      Switch(
-                        value: switch2,
-                        onChanged: _updateSwitch2,
-                      ),
-                    ],
-                  ),
-                  if (switch2)
-                    Image.asset(
-                      'assets/images/fan_on.gif',
-                      width: 100,
-                      height: 100,
-                    )
-                  else
-                    Image.asset(
-                      'assets/images/fan_off.png',
-                      width: 100,
-                      height: 100,
-                    ),
                 ],
               ),
             ),
           ),
-          Container(
-            padding: EdgeInsets.all(16.0),
-            color: Colors.blue.shade50,
-            child: Text(
-              'Developed By Nazmul Hasan RU CSE-29',
-              style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
-              textAlign: TextAlign.center,
-            ),
-          ),
+
+          // Footer
         ],
+      ),
+    );
+  }
+
+  // Widget for the Switch Control UI
+  Widget _buildSwitchControl(String label, bool switchValue,
+      ValueChanged<bool> onChanged, String onImage, String offImage) {
+    return Card(
+      elevation: 4,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  label,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.teal,
+                  ),
+                ),
+                SizedBox(height: 8),
+                Image.asset(
+                  switchValue ? onImage : offImage,
+                  width: 80,
+                  height: 80,
+                ),
+              ],
+            ),
+            Switch(
+              value: switchValue,
+              onChanged: onChanged,
+              activeColor: Colors.teal,
+              inactiveTrackColor: Colors.grey.shade300,
+            ),
+          ],
+        ),
       ),
     );
   }
