@@ -26,8 +26,8 @@ class _AboutPageState extends State<AboutPage> {
   Map<String, dynamic>? about;
 
   @override
-  void initState() {
-    super.initState();
+  void get initState {
+    super.initState;
     loadAbout();
   }
 

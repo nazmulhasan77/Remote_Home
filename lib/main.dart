@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:remote_home/authentication/login_page.dart';
 import 'package:remote_home/authentication/register_page.dart';
 import 'package:remote_home/firebase_options.dart';
@@ -24,10 +25,12 @@ class MyApp1 extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: '/splash',
+      // Check if the user is logged in and set the initial route accordingly
+      initialRoute:
+          FirebaseAuth.instance.currentUser == null ? '/login' : '/splash',
       routes: {
-        '/splash': (context) => SplashScreen(),
         '/login': (context) => LoginPage(),
+        '/splash': (context) => SplashScreen(),
         '/register': (context) => RegisterPage(),
         '/home': (context) => RemoteHome(),
       },

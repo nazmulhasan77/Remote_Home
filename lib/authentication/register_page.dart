@@ -77,7 +77,7 @@ class _RegisterPageState extends State<RegisterPage> {
             children: [
               SizedBox(height: 20),
               Text(
-                'Join Us!',
+                'Create Account !',
                 style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
@@ -106,7 +106,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       width: double.infinity,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.deepPurpleAccent,
+                          backgroundColor: const Color.fromARGB(255, 160, 188, 207),
                           padding: EdgeInsets.symmetric(vertical: 16),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8)),

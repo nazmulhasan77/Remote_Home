@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:remote_home/authentication/login_page.dart';
+import 'package:remote_home/homedata/homepage.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -13,8 +13,8 @@ class _SplashScreenState extends State<SplashScreen>
   late Animation<double> _textAnimation;
 
   @override
-  void initState() {
-    super.initState();
+  void get initState {
+    super.initState;
 
     // Initialize the animation controller
     _controller = AnimationController(
@@ -36,11 +36,12 @@ class _SplashScreenState extends State<SplashScreen>
     _controller.forward();
 
     // Navigate to Home Screen after the animation finishes
-    Future.delayed(Duration(seconds: 4), () {
+    Future.delayed(Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-            builder: (context) => LoginPage()), // Replace with your home screen
+            builder: (context) =>
+                RemoteHome()), // goto home screen
       );
     });
   }
@@ -73,7 +74,7 @@ class _SplashScreenState extends State<SplashScreen>
             FadeTransition(
               opacity: _textAnimation,
               child: Text(
-                "Your Home in Your Hand!",
+                "Your Home is now in Your Hand!",
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w500,

@@ -4,7 +4,7 @@
     <application
         android:label="remote_home"
         android:name="${applicationName}"
-        android:icon="@mipmap/launcher_icons">
+        android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
             android:exported="true"

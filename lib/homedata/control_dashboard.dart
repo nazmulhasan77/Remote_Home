@@ -4,6 +4,8 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:remote_home/firebase_options.dart';
 import 'package:remote_home/homedata/drawer.dart';
+import 'package:remote_home/homedata/homepage.dart';
+// Import RemoteHome if in a separate file
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,8 +41,8 @@ class _HomePageState extends State<HomePage> {
   bool switch2 = false;
 
   @override
-  void initState() {
-    super.initState();
+  void get initState {
+    super.initState;
     _loadSwitchValues();
   }
 
@@ -79,6 +81,15 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.teal,
         title: Text('Home Automation Control'),
         centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => RemoteHome()),
+            );
+          },
+        ),
       ),
       drawer: CustomDrawer(),
       body: Column(

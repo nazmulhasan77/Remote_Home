@@ -26,8 +26,8 @@ class _GuidelinesPageState extends State<GuidelinesPage> {
   Map<String, dynamic>? guidelines;
 
   @override
-  void initState() {
-    super.initState();
+  void get initState {
+    super.initState;
     loadGuidelines();
   }
 
