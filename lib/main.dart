@@ -4,6 +4,7 @@ import 'package:remote_home/authentication/login_page.dart';
 import 'package:remote_home/authentication/register_page.dart';
 import 'package:remote_home/firebase_options.dart';
 import 'package:remote_home/homedata/homepage.dart';
+import 'package:remote_home/homedata/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,12 +20,13 @@ class MyApp1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Firebase Login',
+      title: 'Remote Home',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: '/login',
+      initialRoute: '/splash',
       routes: {
+        '/splash': (context) => SplashScreen(),
         '/login': (context) => LoginPage(),
         '/register': (context) => RegisterPage(),
         '/home': (context) => RemoteHome(),

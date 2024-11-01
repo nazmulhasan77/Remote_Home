@@ -7,9 +7,9 @@ import 'package:remote_home/drawer/instructions.dart';
 import 'package:remote_home/drawer/user_info.dart';
 
 class CustomDrawer extends StatelessWidget {
-  final String headerImageUrl = 'assets/images/header.png';
+  final String headerImageUrl = 'https://i.ibb.co.com/k4WL8LN/header.png';
   final String profileImageUrl =
-      'assets/images/profile_pic.png'; // Add your custom image URL here
+      'https://i.ibb.co.com/ZYysvL3/profile-pic.png'; // Add your custom image URL here
 
   Future<Map<String, String>> _getUserData() async {
     User? user = FirebaseAuth.instance.currentUser;
