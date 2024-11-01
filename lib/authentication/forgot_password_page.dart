@@ -1,40 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'forgot_password_page.dart';
 
-class LoginPage extends StatefulWidget {
+class ForgotPasswordPage extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _ForgotPasswordPageState createState() => _ForgotPasswordPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   final _auth = FirebaseAuth.instance;
   final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
   bool _isLoading = false;
 
-  void _login() async {
+  void _resetPassword() async {
+    if (_emailController.text.trim().isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+            content: Text('Please enter your email to reset your password.')),
+      );
+      return;
+    }
+
     setState(() {
       _isLoading = true;
     });
 
     try {
-      await _auth.signInWithEmailAndPassword(
+      await _auth.sendPasswordResetEmail(
         email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
       );
-
-      if (_auth.currentUser!.emailVerified) {
-        Navigator.pushReplacementNamed(context, '/splash');
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-              content: Text('Please verify your email before logging in.')),
-        );
-      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Password reset email sent. Check your inbox.')),
+      );
+      Navigator.pop(context); // Go back after sending email
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Login failed. Please try again.')),
+        SnackBar(content: Text('Error sending reset email. Please try again.')),
       );
     } finally {
       setState(() {
@@ -46,15 +46,12 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueGrey[50],
       appBar: AppBar(
-        title: Text('Login'),
-        centerTitle: true,
+        title: Text('Forgot Password'),
         backgroundColor: Colors.blueGrey,
-        elevation: 0,
       ),
       body: Center(
-        child: SingleChildScrollView(
+        child: Padding(
           padding: const EdgeInsets.all(24.0),
           child: Card(
             elevation: 8,
@@ -62,14 +59,14 @@ class _LoginPageState extends State<LoginPage> {
               borderRadius: BorderRadius.circular(16),
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 24),
+              padding: const EdgeInsets.all(24.0),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'Welcome Back!',
+                    'Reset Password',
                     style: TextStyle(
-                      fontSize: 28,
+                      fontSize: 24,
                       fontWeight: FontWeight.bold,
                       color: Colors.blueGrey[700],
                     ),
@@ -86,25 +83,13 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 16),
-                  TextField(
-                    controller: _passwordController,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      labelText: 'Password',
-                      prefixIcon: Icon(Icons.lock),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                  ),
                   SizedBox(height: 24),
                   _isLoading
                       ? CircularProgressIndicator()
                       : SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
-                            onPressed: _login,
+                            onPressed: _resetPassword,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blueGrey,
                               shape: RoundedRectangleBorder(
@@ -113,7 +98,7 @@ class _LoginPageState extends State<LoginPage> {
                               padding: EdgeInsets.symmetric(vertical: 16),
                             ),
                             child: Text(
-                              'Login',
+                              'Send Reset Email',
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -122,30 +107,6 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                         ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/register');
-                    },
-                    child: Text(
-                      'Register here',
-                      style: TextStyle(color: Colors.blueGrey),
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              ForgotPasswordPage(), // Navigate to ForgotPasswordPage
-                        ),
-                      );
-                    },
-                    child: Text(
-                      'Forgot Password?',
-                      style: TextStyle(color: Colors.redAccent),
-                    ),
-                  ),
                 ],
               ),
             ),

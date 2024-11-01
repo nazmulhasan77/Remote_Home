@@ -62,11 +62,13 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: Colors.blueGrey[50],
       appBar: AppBar(
-        title: Text('Create Account',
-            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-        backgroundColor: Colors.deepPurpleAccent,
+        title: Text(
+          'Register',
+          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: Colors.blueGrey,
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -77,18 +79,17 @@ class _RegisterPageState extends State<RegisterPage> {
             children: [
               SizedBox(height: 20),
               Text(
-                'Create Account !',
+                'Create Account!',
                 style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
-                    color: Colors.deepPurpleAccent),
+                    color: Colors.blueGrey[700]),
               ),
               SizedBox(height: 20),
               CircleAvatar(
                 radius: 50,
-                backgroundColor: Colors.deepPurpleAccent.withOpacity(0.1),
-                child: Icon(Icons.person_add,
-                    size: 60, color: Colors.deepPurpleAccent),
+                backgroundColor: Colors.blueGrey.withOpacity(0.1),
+                child: Icon(Icons.person_add, size: 60, color: Colors.blueGrey),
               ),
               SizedBox(height: 30),
               _buildTextField(_nameController, 'Full Name', Icons.person),
@@ -101,21 +102,23 @@ class _RegisterPageState extends State<RegisterPage> {
                   isPassword: true),
               SizedBox(height: 30),
               _isLoading
-                  ? CircularProgressIndicator(color: Colors.deepPurpleAccent)
+                  ? CircularProgressIndicator(color: Colors.blueGrey)
                   : SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color.fromARGB(255, 160, 188, 207),
+                          backgroundColor: Colors.blueGrey,
                           padding: EdgeInsets.symmetric(vertical: 16),
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8)),
+                              borderRadius: BorderRadius.circular(12)),
                         ),
                         onPressed: _register,
                         child: Text(
                           'Register',
                           style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
                         ),
                       ),
                     ),
@@ -136,9 +139,9 @@ class _RegisterPageState extends State<RegisterPage> {
       controller: controller,
       obscureText: isPassword,
       decoration: InputDecoration(
-        prefixIcon: Icon(icon, color: Colors.deepPurpleAccent),
+        prefixIcon: Icon(icon, color: Colors.blueGrey),
         labelText: label,
-        labelStyle: TextStyle(color: Colors.deepPurpleAccent),
+        labelStyle: TextStyle(color: Colors.blueGrey),
         filled: true,
         fillColor: Colors.white,
         border: OutlineInputBorder(
@@ -147,7 +150,7 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: Colors.deepPurpleAccent),
+          borderSide: BorderSide(color: Colors.blueGrey),
         ),
       ),
       style: TextStyle(color: Colors.black87),
