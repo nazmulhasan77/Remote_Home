@@ -30,6 +30,9 @@ This home automation system is designed to automate the control of various home 
 - **Healthcare:** Managing devices like temperature control systems or remote monitoring tools in hospitals or elder care.
 
 
+## Circuit Board
+![Circuit Board](assets/images/screenshorts/circuit.jpg)
+
 ## App Screenshots
 Here are some screenshots of the application:
 
@@ -37,9 +40,13 @@ Here are some screenshots of the application:
 ![Home Screen](assets/images/screenshorts/homepage1.png)
 ![Home Screen](assets/images/screenshorts/homepage2.png)
 
-### 2. Login Page
-![Control Panel](assets/images/screenshorts/loginpage.png)
-
 ### 3. Menu Page
 ![About Page](assets/images/screenshorts/menupage.png)
+
+### 2. Login Page
+![Control Panel](assets/images/screenshorts/loginpage.png)
+### 2. Register Page
+![Control Panel](assets/images/screenshorts/registerpage.png)
+
+
 
