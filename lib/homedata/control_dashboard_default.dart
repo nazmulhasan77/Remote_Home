@@ -7,6 +7,7 @@ class ControlDashboard extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Remotely Control your Device'),
+        backgroundColor: Colors.teal,
       ),
       body: Center(
         child: Column(

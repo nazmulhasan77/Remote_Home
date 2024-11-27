@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:remote_home/NewControl.dart';
 import 'package:remote_home/homedata/control_dashboard.dart';
 import 'package:remote_home/homedata/control_dashboard_default.dart';
 import 'package:remote_home/homedata/drawer.dart';
@@ -25,8 +26,8 @@ class HomePage extends StatelessWidget {
   final List<Map<String, dynamic>> items = [
     {'name': 'Bedroom', 'icon': FontAwesomeIcons.bed},
     {'name': 'Kitchen', 'icon': FontAwesomeIcons.utensils},
-    {'name': 'Bathroom', 'icon': FontAwesomeIcons.bath},
     {'name': 'Garage', 'icon': FontAwesomeIcons.car},
+    {'name': 'Bathroom', 'icon': FontAwesomeIcons.bath},
     {'name': 'Office', 'icon': FontAwesomeIcons.laptop},
     {'name': 'Garden', 'icon': FontAwesomeIcons.leaf},
   ];
@@ -68,6 +69,14 @@ class HomePage extends StatelessWidget {
                   onTap: () {
                     if (items[index]['name'] == 'Bedroom') {
                       _showPasswordDialog(context);
+                    } else if (items[index]['name'] == 'Garage') {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              NewControl(), // Navigate to NewControl page
+                        ),
+                      );
                     } else {
                       Navigator.push(
                         context,
